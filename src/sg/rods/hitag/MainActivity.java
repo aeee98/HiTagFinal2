@@ -48,14 +48,14 @@ public class MainActivity extends Activity {
     		Log.e("Authentication Success", arg0);
     		builder = new StringBuilder();
     		builder.append(arg0);
-    		setResult(Integer.parseInt(builder.toString()));
+    		setResult(builder.toString());
     		}
             @Override
     		public void onAuthFailed(String arg0) {
     		Log.e("Authentication Failed", arg0);
     		builder = new StringBuilder();
     		builder.append(arg0);
-    		setResult(Integer.parseInt(builder.toString()));
+    		setResult(builder.toString());
     		}
     		});
 
@@ -68,7 +68,8 @@ public class MainActivity extends Activity {
                 builder.append(Boolean.toString(isAuthorized));
                 if (builder.length() == 0)
                     builder.append("No Result");
-                setResult(Integer.parseInt(builder.toString()));
+                setResult(builder.toString());
+
             }
             @Override
             public void onFailed(String errorMessage) {
@@ -77,12 +78,14 @@ public class MainActivity extends Activity {
                 builder.append(errorMessage);
                 if (builder.length() == 0)
                     builder.append("No Result");
-                setResult(Integer.parseInt(builder.toString()));
+                setResult(builder.toString());
             }
         });
     }
 
-
+    public void setResult(String s) {
+        System.out.println(s);
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -105,10 +108,11 @@ public class MainActivity extends Activity {
     public void createRoom(View view)
     {
         Intent i = new Intent(getApplicationContext(), CreateRoom.class);
+        startActivity(i);
     }
 
     public void joinRoom(View view)
     {
-
+        Intent i = new Intent(getApplicationContext(), JoinRoom.class);
     }
 }

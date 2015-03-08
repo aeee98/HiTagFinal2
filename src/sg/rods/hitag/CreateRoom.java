@@ -6,17 +6,48 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.razer.android.nabuopensdk.AuthCheckCallback;
+import com.razer.android.nabuopensdk.NabuOpenSDK;
+import com.razer.android.nabuopensdk.interfaces.BandListListener;
+import com.razer.android.nabuopensdk.interfaces.FitnessHistoryListener;
+import com.razer.android.nabuopensdk.interfaces.FitnessListener;
+import com.razer.android.nabuopensdk.interfaces.Hi5Listener;
+import com.razer.android.nabuopensdk.interfaces.LiveDataListener;
+import com.razer.android.nabuopensdk.interfaces.NabuAuthListener;
+import com.razer.android.nabuopensdk.interfaces.PulseListener;
+import com.razer.android.nabuopensdk.interfaces.SendNotificationListener;
+import com.razer.android.nabuopensdk.interfaces.SleepHistoryListener;
+import com.razer.android.nabuopensdk.interfaces.SleepTrackerListener;
+import com.razer.android.nabuopensdk.interfaces.UserIDListener;
+import com.razer.android.nabuopensdk.interfaces.UserProfileListener;
+import com.razer.android.nabuopensdk.models.Hi5Data;
+import com.razer.android.nabuopensdk.models.NabuBand;
+import com.razer.android.nabuopensdk.models.NabuFitness;
+import com.razer.android.nabuopensdk.models.NabuFitnessHistory;
+import com.razer.android.nabuopensdk.models.NabuNotification;
+import com.razer.android.nabuopensdk.models.NabuSleepHistory;
+import com.razer.android.nabuopensdk.models.NabuSleepTracker;
+import com.razer.android.nabuopensdk.models.PulseData;
+import com.razer.android.nabuopensdk.models.Scope;
+import com.razer.android.nabuopensdk.models.UserProfile;
 
 public class CreateRoom extends Activity {
-
+    //instantiate SDK
+    static NabuOpenSDK nabuSDK = null;
+    StringBuilder builder;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_room);
+        //get Nabu Data
+        nabuSDK = NabuOpenSDK.getInstance(this);
+
     }
 
     public void createRoom(View view){
-        //send nabu and new room data to server
+
+
+        //TODO send nabu and new room data to server
 
 
     }
