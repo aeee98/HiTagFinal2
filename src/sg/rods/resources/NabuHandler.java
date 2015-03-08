@@ -26,6 +26,24 @@ import com.razer.android.nabuopensdk.models.Scope;
 import com.razer.android.nabuopensdk.models.UserProfile;
 
 public class NabuHandler {
-	
+
+    private static NabuOpenSDK nabuSDK = null;
+    private static boolean error = false;
+
+    public static NabuOpenSDK getNabuSDK() {
+        return nabuSDK;
+    }
+
+    public static void setNabuSDK(NabuOpenSDK sdk) {
+        nabuSDK = sdk;
+    }
+
+    public static boolean getError() {
+        return error;
+    }
+
+    public static void setError(boolean status) {
+        error = status;
+    }
 	
 }
