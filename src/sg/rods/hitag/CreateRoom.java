@@ -49,6 +49,7 @@ public class CreateRoom extends Activity {
     static NabuOpenSDK nabuSDK = null;
     private Socket clientSocket;
     private String name = "Guest";
+    String roomName = "Room Placeholder";
     StringBuilder builder;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +60,7 @@ public class CreateRoom extends Activity {
             @Override
             public void onClick(View view) {
                 EditText et = (EditText) findViewById(R.id.RoomNameTextEdit);
-                String roomName = et.getText().toString();
+                roomName = et.getText().toString();
                 if(roomName.isEmpty() == false) {
                     try {
                         sendBytes((byte) 01, roomName);
@@ -105,7 +106,9 @@ public class CreateRoom extends Activity {
                     switch(command) {
                         case Command.CREATE:
                             Intent i = new Intent(c, GameRoomActivity.class);
-                            i.putExtra("roomId", value);
+                            i.putExtra("roomId", stringValue);
+                            i.putExtra("roomName", roomName);
+                            i.putExtra("host", true);
                             startActivity(i);
                             finish();
                             break;
@@ -156,9 +159,6 @@ public class CreateRoom extends Activity {
         return receivedBytes;
     }
 
-    public void createRoom(View view){
-        //TODO send nabu and new room data to server
-    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

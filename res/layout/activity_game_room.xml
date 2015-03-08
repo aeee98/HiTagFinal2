@@ -9,23 +9,10 @@
     android:orientation="vertical">
 
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Refresh"
-        android:id="@+id/refreshBtn"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentStart="true"
-        android:textColor="#FFFFFF"
-        android:onClick="refreshRoom" />
-
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/listView"
-        android:layout_alignEnd="@+id/refreshBtn"
-        android:layout_below="@+id/refreshBtn" />
+        android:id="@+id/listView" />
 
     <Button
         android:layout_width="wrap_content"
