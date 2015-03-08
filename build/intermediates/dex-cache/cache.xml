@@ -2,6 +2,13 @@
 <items version="2" >
 
     <item
+        jar="C:\Users\Lee\Documents\GitHub\HiTagFinal2\libs\nabuopensdk_final.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="d137751d2f0c43ccb4f0ad2d56252e98636cb1d9">
+        <dex dex="C:\Users\Lee\Documents\GitHub\HiTagFinal2\build\intermediates\pre-dexed\debug\nabuopensdk_final-47358f58c69127091eac46ee88d481760c294b69.jar" />
+    </item>
+    <item
         jar="C:\Users\Lee\Documents\GitHub\HiTagFinal2\libs\volley.jar"
         jumboMode="false"
         revision="19.1.0"
@@ -28,13 +35,6 @@
         revision="19.1.0"
         sha1="03ae380888029daefb91d3ecdca3a37d8cb92bc9">
         <dex dex="C:\Users\Lee\Documents\GitHub\HiTagFinal2\build\intermediates\pre-dexed\debug\jackson-databind-2.2.3-5d76025753508fb2754f8f62428b1fc67e5efccf.jar" />
-    </item>
-    <item
-        jar="C:\Users\Lee\Documents\GitHub\HiTagFinal2\libs\nabuopensdk_final.jar"
-        jumboMode="false"
-        revision="19.1.0"
-        sha1="d137751d2f0c43ccb4f0ad2d56252e98636cb1d9">
-        <dex dex="C:\Users\Lee\Documents\GitHub\HiTagFinal2\build\intermediates\pre-dexed\debug\nabuopensdk_final-47358f58c69127091eac46ee88d481760c294b69.jar" />
     </item>
     <item
         jar="C:\Users\Lee\Documents\GitHub\HiTagFinal2\libs\android-support-v4.jar"
