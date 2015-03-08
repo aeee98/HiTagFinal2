@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="sg.rods.hitag"
     android:versionCode="1"
-    android:versionName="0.0.1" >
+    android:versionName="1.0" >
 
     <uses-sdk
         android:minSdkVersion="18"
@@ -41,6 +41,12 @@
         <activity
             android:name="sg.rods.hitag.GameRoomActivity"
             android:label="@string/title_activity_game_room" >
+        </activity>
+        <activity
+            android:name="sg.rods.hitag.SplashScreen"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_splash_screen"
+            android:theme="@style/FullscreenTheme" >
         </activity>
     </application>
 

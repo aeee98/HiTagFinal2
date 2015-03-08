@@ -42,6 +42,12 @@
             android:name=".GameRoomActivity"
             android:label="@string/title_activity_game_room" >
         </activity>
+        <activity
+            android:name=".SplashScreen"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_splash_screen"
+            android:theme="@style/FullscreenTheme" >
+        </activity>
     </application>
 
 </manifest>
