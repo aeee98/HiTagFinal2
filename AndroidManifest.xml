@@ -38,6 +38,10 @@
             android:name=".JoinRoom"
             android:label="@string/title_activity_join_room" >
         </activity>
+        <activity
+            android:name=".GameRoomActivity"
+            android:label="@string/title_activity_game_room" >
+        </activity>
     </application>
 
 </manifest>
