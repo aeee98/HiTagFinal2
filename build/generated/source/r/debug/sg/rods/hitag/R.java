@@ -34,20 +34,21 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int Passwordtxt=0x7f0a0006;
         public static final int RoomNameText=0x7f0a0004;
         public static final int RoomNameTextEdit=0x7f0a0005;
-        public static final int action_settings=0x7f0a0013;
+        public static final int action_settings=0x7f0a0014;
         public static final int bottom=0x7f0a0003;
-        public static final int button=0x7f0a000a;
-        public static final int createButton=0x7f0a000e;
-        public static final int imageView=0x7f0a0010;
-        public static final int joinButton=0x7f0a000f;
+        public static final int createButton=0x7f0a000f;
+        public static final int imageView=0x7f0a0011;
+        public static final int joinButton=0x7f0a0010;
+        public static final int leaveButton=0x7f0a000b;
         public static final int middle=0x7f0a0001;
         public static final int playerList=0x7f0a0009;
-        public static final int progessBarLinear=0x7f0a0011;
-        public static final int progressBar=0x7f0a0012;
-        public static final int refreshBtn=0x7f0a000b;
+        public static final int progessBarLinear=0x7f0a0012;
+        public static final int progressBar=0x7f0a0013;
+        public static final int refreshBtn=0x7f0a000c;
         public static final int roomCreateBtn=0x7f0a0008;
-        public static final int roomList=0x7f0a000c;
-        public static final int startGameBtn=0x7f0a000d;
+        public static final int roomList=0x7f0a000d;
+        public static final int startGameBtn=0x7f0a000e;
+        public static final int startGameButton=0x7f0a000a;
         public static final int top=0x7f0a0000;
     }
     public static final class layout {

@@ -23,8 +23,9 @@ import sg.rods.resources.SocketHandler;
 
 
 public class GameRoomActivity extends Activity {
-    private Button startButton;
+    private Button startButton, leaveButton;
     private Socket clientSocket;
+    private String roomId = "0";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +37,7 @@ public class GameRoomActivity extends Activity {
         Populate
          */
         Bundle pastBundle = getIntent().getExtras();
-        String roomId = pastBundle.getString("roomId");
+        roomId = pastBundle.getString("roomId");
         String roomName = pastBundle.getString("roomName");
         String playerList = pastBundle.getString("listPlayer");
         RefreshRoom(playerList);
@@ -45,15 +46,36 @@ public class GameRoomActivity extends Activity {
         this.setTitle(roomTitle);
         //Check If Master, if Master, GameButton at bottom has the functionality to start the game. Otherwise, it will not be clickable
         if(isHost) {
-            startButton = (Button) findViewById(R.id.startGameBtn);
+            startButton = (Button) findViewById(R.id.startGameButton);
+            startButton.setText("Start");
             startButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    // Start Game
+                    try {
+                        sendBytes((byte) 05, "TEST DATA TO SEND FOR FUN - NO VALUE");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        Toast.makeText(getApplicationContext(), "Unable to reach designated server.", Toast.LENGTH_SHORT);
+                    }
                 }
             });
+        } else {
+            startButton = (Button) findViewById(R.id.startGameButton);
+            startButton.setVisibility(View.GONE);
         }
-       /* SocketListener sl = new SocketListener();
+        leaveButton = (Button) findViewById(R.id.leaveButton);
+        leaveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    sendBytes((byte) 03, roomId);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Toast.makeText(getApplicationContext(), "Unable to reach designated server.", Toast.LENGTH_SHORT);
+                }
+            }
+        });
+        SocketListener sl = new SocketListener();
         sl.setContextInterface(this);
         final Thread t = new Thread(sl);
         new Handler().postDelayed(new Runnable() {
@@ -61,7 +83,7 @@ public class GameRoomActivity extends Activity {
             public void run() {
                 t.start();
             }
-        }, 5000);*/
+        }, 5000);
         /*
         getRoleOfMember
         
@@ -99,6 +121,8 @@ public class GameRoomActivity extends Activity {
                         case Command.ROOM_REFRESH:
                             RefreshRoom(stringValue);
                             break;
+                        case Command.LEAVE:
+                            finish();
                     }
                 } catch (InterruptedException e) {
                     //Toast.makeText(c, "Unable to create a room.", Toast.LENGTH_LONG).show();
@@ -142,7 +166,7 @@ public class GameRoomActivity extends Activity {
     public void RefreshRoom(String stringData)
     {
         final String data = stringData;
-
+        System.out.println("Data: " + stringData);
         runOnUiThread(new Runnable(){
             @Override
             public void run(){
@@ -151,9 +175,7 @@ public class GameRoomActivity extends Activity {
         if(data.contains(",")) {
             playerList = data.split(",");
         } else {
-            ArrayList<String> arr = new ArrayList<String>();
-            arr.add(data);
-            playerList = (String[]) arr.toArray();
+            playerList = new String[]{data};
         }
         ListView lv = (ListView) findViewById(R.id.playerList);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(),
