@@ -77,7 +77,7 @@ public class CreateRoom extends Activity {
         clientSocket = SocketHandler.getSocket();
         if(clientSocket != null) {
             SocketListener sl = new SocketListener();
-            sl.setContextInterface(getApplicationContext());
+            sl.setContextInterface(this);
             new Thread(sl).start();
         } else {
             // Disable the create button.
@@ -118,9 +118,9 @@ public class CreateRoom extends Activity {
                             break;
                     }
                 } catch (InterruptedException e) {
-                    Toast.makeText(c, "Unable to create a room.", Toast.LENGTH_LONG).show();
+                   // Toast.makeText(c, "Unable to create a room.", Toast.LENGTH_LONG).show();
                 } catch (IOException e) {
-                    Toast.makeText(c, "Are you sure you're connected to the server?", Toast.LENGTH_LONG).show();
+                    //Toast.makeText(c, "Are you sure you're connected to the server?", Toast.LENGTH_LONG).show();
                 }
                 if((intentAction.hasExtra("roomId"))&&(intentAction.hasExtra("roomName"))&&(intentAction.hasExtra("listPlayer"))&&(intentAction.hasExtra("host"))) {
                     running = false;

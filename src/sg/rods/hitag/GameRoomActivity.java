@@ -101,9 +101,9 @@ public class GameRoomActivity extends Activity {
                             break;
                     }
                 } catch (InterruptedException e) {
-                    Toast.makeText(c, "Unable to create a room.", Toast.LENGTH_LONG).show();
+                    //Toast.makeText(c, "Unable to create a room.", Toast.LENGTH_LONG).show();
                 } catch (IOException e) {
-                    Toast.makeText(c, "Are you sure you're connected to the server?", Toast.LENGTH_LONG).show();
+                    //Toast.makeText(c, "Are you sure you're connected to the server?", Toast.LENGTH_LONG).show();
                 }
             }
         }
@@ -141,18 +141,26 @@ public class GameRoomActivity extends Activity {
 
     public void RefreshRoom(String stringData)
     {
+        final String data = stringData;
+
+        runOnUiThread(new Runnable(){
+            @Override
+            public void run(){
+                // change UI elements here
         String[] playerList;
-        if(stringData.contains(",")) {
-            playerList = stringData.split(",");
+        if(data.contains(",")) {
+            playerList = data.split(",");
         } else {
             ArrayList<String> arr = new ArrayList<String>();
-            arr.add(stringData);
+            arr.add(data);
             playerList = (String[]) arr.toArray();
         }
         ListView lv = (ListView) findViewById(R.id.playerList);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(),
                 android.R.layout.simple_list_item_1, playerList);
         lv.setAdapter(adapter);
+            }
+        });
 
     }
     @Override
