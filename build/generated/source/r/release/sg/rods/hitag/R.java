@@ -20,6 +20,9 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
     }
     public static final class color {
         public static final int black_overlay=0x7f050000;
+        public static final int green=0x7f050001;
+        public static final int red=0x7f050002;
+        public static final int white=0x7f050003;
     }
     public static final class dimen {
         public static final int activity_horizontal_margin=0x7f060000;
@@ -34,29 +37,38 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int Passwordtxt=0x7f0a0006;
         public static final int RoomNameText=0x7f0a0004;
         public static final int RoomNameTextEdit=0x7f0a0005;
-        public static final int action_settings=0x7f0a0013;
+        public static final int action_settings=0x7f0a001b;
         public static final int bottom=0x7f0a0003;
-        public static final int button=0x7f0a000a;
-        public static final int createButton=0x7f0a000e;
-        public static final int imageView=0x7f0a0010;
-        public static final int joinButton=0x7f0a000f;
+        public static final int createButton=0x7f0a000f;
+        public static final int displayLbl=0x7f0a0015;
+        public static final int fullNameTextEdit=0x7f0a0016;
+        public static final int imageView=0x7f0a0018;
+        public static final int joinButton=0x7f0a0010;
+        public static final int leaveButton=0x7f0a000b;
         public static final int middle=0x7f0a0001;
+        public static final int onlineStatusView=0x7f0a0012;
         public static final int playerList=0x7f0a0009;
-        public static final int progessBarLinear=0x7f0a0011;
-        public static final int progressBar=0x7f0a0012;
-        public static final int refreshBtn=0x7f0a000b;
+        public static final int progessBarLinear=0x7f0a0019;
+        public static final int progressBar=0x7f0a001a;
+        public static final int refreshBtn=0x7f0a000c;
         public static final int roomCreateBtn=0x7f0a0008;
-        public static final int roomList=0x7f0a000c;
-        public static final int startGameBtn=0x7f0a000d;
+        public static final int roomList=0x7f0a000d;
+        public static final int savePrefBtn=0x7f0a0017;
+        public static final int serverLbl=0x7f0a0011;
+        public static final int startGameBtn=0x7f0a000e;
+        public static final int startGameButton=0x7f0a000a;
+        public static final int textView2=0x7f0a0014;
         public static final int top=0x7f0a0000;
+        public static final int versionLbl=0x7f0a0013;
     }
     public static final class layout {
         public static final int activity_create_room=0x7f040000;
         public static final int activity_game_room=0x7f040001;
         public static final int activity_join_room=0x7f040002;
         public static final int activity_main=0x7f040003;
-        public static final int activity_splash_screen=0x7f040004;
-        public static final int fragment_main=0x7f040005;
+        public static final int activity_settings=0x7f040004;
+        public static final int activity_splash_screen=0x7f040005;
+        public static final int fragment_main=0x7f040006;
     }
     public static final class menu {
         public static final int main=0x7f090000;
@@ -77,7 +89,9 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int title_activity_create_room=0x7f070006;
         public static final int title_activity_game_room=0x7f070007;
         public static final int title_activity_join_room=0x7f070008;
-        public static final int title_activity_splash_screen=0x7f070009;
+        public static final int title_activity_settings=0x7f070009;
+        public static final int title_activity_splash_screen=0x7f07000a;
+        public static final int version=0x7f07000b;
     }
     public static final class style {
         /** 

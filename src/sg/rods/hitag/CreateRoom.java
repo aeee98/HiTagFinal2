@@ -47,14 +47,16 @@ import sg.rods.resources.SocketHandler;
 public class CreateRoom extends Activity {
     //instantiate SDK
     static NabuOpenSDK nabuSDK = null;
-    private Socket clientSocket;
+    private Socket clientSocket = null;
     private String name = "Guest";
+    private Thread NetworkListener;
     String roomName = "Room Placeholder";
     StringBuilder builder;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_room);
+        name = getSharedPreferences("prefsValue", MODE_PRIVATE).getString("displayName", "Guest");
         Button createButton = (Button) findViewById(R.id.roomCreateBtn);
         createButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,8 +80,10 @@ public class CreateRoom extends Activity {
         if(clientSocket != null) {
             SocketListener sl = new SocketListener();
             sl.setContextInterface(this);
-            new Thread(sl).start();
+            NetworkListener = new Thread(sl);
+            NetworkListener.start();
         } else {
+            createButton.setEnabled(false);
             // Disable the create button.
         }
     }
@@ -87,17 +91,27 @@ public class CreateRoom extends Activity {
     class SocketListener implements Runnable {
 
         private Context c;
+        private boolean running = true;
+
+        public SocketListener() {
+            running = true;
+        }
 
         public void setContextInterface(Context c) {
             this.c = c;
         }
 
+        private boolean firstRun = true;
+
         @Override
         public void run() {
             Intent intentAction = new Intent(c, GameRoomActivity.class);
-            boolean running = true;
             while(running) {
                 try {
+                    if(firstRun) {
+                        sendBytes((byte)100, name);
+                        firstRun = false;
+                    }
                     byte[] fromClient = readBytes();
                     byte command = fromClient[0];
                     byte[] value = new byte[fromClient.length - 1];
@@ -105,6 +119,7 @@ public class CreateRoom extends Activity {
                         value[i - 1] = fromClient[i];
                     }
                     String stringValue = new String(value);
+                    System.out.println("Command #" + command + " - Value: " + stringValue);
                     switch(command) {
                         case Command.CREATE:
                             intentAction.putExtra("roomId", stringValue);
@@ -122,13 +137,20 @@ public class CreateRoom extends Activity {
                 } catch (IOException e) {
                     //Toast.makeText(c, "Are you sure you're connected to the server?", Toast.LENGTH_LONG).show();
                 }
+                System.out.println("Loop");
                 if((intentAction.hasExtra("roomId"))&&(intentAction.hasExtra("roomName"))&&(intentAction.hasExtra("listPlayer"))&&(intentAction.hasExtra("host"))) {
                     running = false;
+                    System.out.println("Intent extra");
                 }
             }
             startActivity(intentAction);
             finish();
         }
+    }
+
+    protected void onDestroy() {
+        super.onDestroy();
+        NetworkListener.interrupt();
     }
 
     public void setName(byte[] value) {
@@ -154,7 +176,7 @@ public class CreateRoom extends Activity {
     }
 
     public byte[] readBytes() throws IOException, InterruptedException {
-        InputStream in = clientSocket.getInputStream();;
+        InputStream in = clientSocket.getInputStream();
         byte[] lenBytes = new byte[4];
         in.read(lenBytes, 0, 4);
         int len = (((lenBytes[3] & 0xff) << 24) | ((lenBytes[2] & 0xff) << 16)

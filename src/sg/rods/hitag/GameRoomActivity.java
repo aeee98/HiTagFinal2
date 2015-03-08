@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.android.volley.Network;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -24,7 +26,10 @@ import sg.rods.resources.SocketHandler;
 
 public class GameRoomActivity extends Activity {
     private Button startButton, leaveButton;
-    private Socket clientSocket;
+    private InputStream in;
+    private OutputStream os;
+    private Socket clientSocket = null;
+    private Thread NetworkListener;
     private String roomId = "0";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +49,7 @@ public class GameRoomActivity extends Activity {
         boolean isHost = pastBundle.getBoolean("host"); // get role. Role is determined by how User get into the room - Create or Join
         String roomTitle = roomId + ":" + roomName;
         this.setTitle(roomTitle);
+        System.out.println("Room Name: " + roomName + " - Room ID: " + roomId + " - playerList: " + playerList);
         //Check If Master, if Master, GameButton at bottom has the functionality to start the game. Otherwise, it will not be clickable
         if(isHost) {
             startButton = (Button) findViewById(R.id.startGameButton);
@@ -75,15 +81,12 @@ public class GameRoomActivity extends Activity {
                 }
             }
         });
-        SocketListener sl = new SocketListener();
-        sl.setContextInterface(this);
-        final Thread t = new Thread(sl);
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                t.start();
-            }
-        }, 5000);
+        if(clientSocket != null) {
+            SocketListener sl = new SocketListener();
+            sl.setContextInterface(this);
+            NetworkListener = new Thread(sl);
+            NetworkListener.start();
+        }
         /*
         getRoleOfMember
         
@@ -99,14 +102,15 @@ public class GameRoomActivity extends Activity {
 
 
         private Context c;
-
+        private boolean running = true;
         public void setContextInterface(Context c) {
             this.c = c;
         }
 
         @Override
         public void run() {
-            while(true) {
+
+            while(running) {
                 try {
                     byte[] fromClient = readBytes();
                     byte command = fromClient[0];
@@ -122,19 +126,29 @@ public class GameRoomActivity extends Activity {
                             RefreshRoom(stringValue);
                             break;
                         case Command.LEAVE:
-                            finish();
+                            running = false;
+                            NetworkListener.interrupt();
                     }
                 } catch (InterruptedException e) {
+                    System.out.println("InterupttedException error");
+                    finish();
                     //Toast.makeText(c, "Unable to create a room.", Toast.LENGTH_LONG).show();
                 } catch (IOException e) {
+                    System.out.println("IO error");
+                    finish();
                     //Toast.makeText(c, "Are you sure you're connected to the server?", Toast.LENGTH_LONG).show();
                 }
+                finish();
             }
         }
     }
 
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
     public void sendBytes(byte byteCode, String message) throws IOException {
-        OutputStream os = clientSocket.getOutputStream();
+        os = clientSocket.getOutputStream();
         byte[] tempToSendBytes = message.getBytes();
         byte[] toSendBytes = new byte[tempToSendBytes.length + 1];
         toSendBytes[0] = byteCode;
@@ -152,7 +166,7 @@ public class GameRoomActivity extends Activity {
     }
 
     public byte[] readBytes() throws IOException, InterruptedException {
-        InputStream in = clientSocket.getInputStream();;
+        in = clientSocket.getInputStream();;
         byte[] lenBytes = new byte[4];
         in.read(lenBytes, 0, 4);
         int len = (((lenBytes[3] & 0xff) << 24) | ((lenBytes[2] & 0xff) << 16)
@@ -167,20 +181,20 @@ public class GameRoomActivity extends Activity {
     {
         final String data = stringData;
         System.out.println("Data: " + stringData);
-        runOnUiThread(new Runnable(){
+        runOnUiThread(new Runnable() {
             @Override
-            public void run(){
+            public void run() {
                 // change UI elements here
-        String[] playerList;
-        if(data.contains(",")) {
-            playerList = data.split(",");
-        } else {
-            playerList = new String[]{data};
-        }
-        ListView lv = (ListView) findViewById(R.id.playerList);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(),
-                android.R.layout.simple_list_item_1, playerList);
-        lv.setAdapter(adapter);
+                String[] playerList;
+                if (data.contains(",")) {
+                    playerList = data.split(",");
+                } else {
+                    playerList = new String[]{data};
+                }
+                ListView lv = (ListView) findViewById(R.id.playerList);
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(),
+                        android.R.layout.simple_list_item_1, playerList);
+                lv.setAdapter(adapter);
             }
         });
 

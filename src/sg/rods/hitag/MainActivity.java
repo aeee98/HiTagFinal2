@@ -100,9 +100,17 @@ public class MainActivity extends Activity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.action_settings) {
+            Intent i = new Intent(MainActivity.this, SettingsActivity.class);
+            startActivity(i);
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        System.out.println("Resuming MainActivity");
     }
 
     public void createRoom(View view)
@@ -114,5 +122,6 @@ public class MainActivity extends Activity {
     public void joinRoom(View view)
     {
         Intent i = new Intent(getApplicationContext(), JoinRoom.class);
+        startActivity(i);
     }
 }

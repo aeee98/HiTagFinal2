@@ -3,6 +3,9 @@
     <!-- From: file:/C:/Users/Lee/Documents/GitHub/HiTagFinal2/res/values/colors.xml -->
     <eat-comment/>
     <color name="black_overlay">#66000000</color>
+    <color name="green">#ff12ff00</color>
+    <color name="red">#FF000000</color>
+    <color name="white">#ffffff00</color>
     <declare-styleable name="ButtonBarContainerTheme"><attr format="reference" name="metaButtonBarStyle"/><attr format="reference" name="metaButtonBarButtonStyle"/></declare-styleable>
     <!-- From: file:/C:/Users/Lee/Documents/GitHub/HiTagFinal2/res/values/dimens.xml -->
     <eat-comment/>
@@ -19,7 +22,9 @@
     <string name="title_activity_create_room">CreateRoom</string>
     <string name="title_activity_game_room">GameRoomActivity</string>
     <string name="title_activity_join_room">JoinRoom</string>
+    <string name="title_activity_settings">SettingsActivity</string>
     <string name="title_activity_splash_screen">SplashScreen</string>
+    <string name="version">1.0.0.0</string>
     <!-- From: file:/C:/Users/Lee/Documents/GitHub/HiTagFinal2/res/values/styles.xml -->
     <eat-comment/>
     <style name="AppBaseTheme" parent="android:Theme.Light">

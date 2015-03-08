@@ -51,6 +51,14 @@
             android:label="@string/title_activity_game_room" >
         </activity>
         <activity android:name="com.razer.android.nabuopensdk.ActivityWebView" />
+        <activity
+            android:name="sg.rods.hitag.SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:parentActivityName="sg.rods.hitag.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="sg.rods.hitag.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

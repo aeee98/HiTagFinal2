@@ -1,5 +1,8 @@
 <resources>
 
     <color name="black_overlay">#66000000</color>
+    <color name="red">#FF000000</color>
+    <color name="white">#ffffff00</color>
+    <color name="green">#ff12ff00</color>
 
 </resources>
