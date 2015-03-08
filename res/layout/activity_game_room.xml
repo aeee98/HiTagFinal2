@@ -28,4 +28,13 @@
         android:layout_alignEnd="@+id/refreshBtn"
         android:layout_below="@+id/refreshBtn" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/listView"
+        android:textColor="#FFFFFF" />
+
 </RelativeLayout>
