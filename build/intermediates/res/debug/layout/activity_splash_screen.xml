@@ -33,17 +33,29 @@
             android:orientation="vertical"
             android:layout_width="fill_parent"
             android:layout_height="189dp"
-            android:layout_weight="1"
-            android:weightSum="1">
+            android:weightSum="1"
+            android:id="@+id/progessBarLinear">
 
-            <ProgressBar
-                style="?android:attr/progressBarStyleLarge"
-                android:layout_width="119dp"
-                android:layout_height="119dp"
-                android:id="@+id/progressBar"
-                android:layout_gravity="center_horizontal"
-                android:indeterminate="true"
-                android:indeterminateBehavior="cycle" />
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="44dp"></LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+                <ProgressBar
+                    style="?android:attr/progressBarStyleLarge"
+                    android:layout_width="103dp"
+                    android:layout_height="103dp"
+                    android:id="@+id/progressBar"
+                    android:layout_gravity="center_horizontal"
+                    android:indeterminate="true"
+                    android:indeterminateBehavior="cycle" />
+            </LinearLayout>
+
         </LinearLayout>
     </LinearLayout>
 
