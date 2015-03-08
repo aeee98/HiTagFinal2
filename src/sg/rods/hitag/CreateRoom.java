@@ -94,7 +94,9 @@ public class CreateRoom extends Activity {
 
         @Override
         public void run() {
-            while(true) {
+            Intent intentAction = new Intent(c, GameRoomActivity.class);
+            boolean running = true;
+            while(running) {
                 try {
                     byte[] fromClient = readBytes();
                     byte command = fromClient[0];
@@ -105,23 +107,27 @@ public class CreateRoom extends Activity {
                     String stringValue = new String(value);
                     switch(command) {
                         case Command.CREATE:
-                            Intent i = new Intent(c, GameRoomActivity.class);
-                            i.putExtra("roomId", stringValue);
-                            i.putExtra("roomName", roomName);
-                            i.putExtra("host", true);
-                            startActivity(i);
-                            finish();
+                            intentAction.putExtra("roomId", stringValue);
+                            intentAction.putExtra("roomName", roomName);
+                            intentAction.putExtra("host", true);
                             break;
                         case Command.SETNAME:
                             break;
-
+                        case Command.ROOM_REFRESH:
+                            intentAction.putExtra("listPlayer", new String(value));
+                            break;
                     }
                 } catch (InterruptedException e) {
                     Toast.makeText(c, "Unable to create a room.", Toast.LENGTH_LONG).show();
                 } catch (IOException e) {
                     Toast.makeText(c, "Are you sure you're connected to the server?", Toast.LENGTH_LONG).show();
                 }
+                if((intentAction.hasExtra("roomId"))&&(intentAction.hasExtra("roomName"))&&(intentAction.hasExtra("listPlayer"))&&(intentAction.hasExtra("host"))) {
+                    running = false;
+                }
             }
+            startActivity(intentAction);
+            finish();
         }
     }
 
@@ -130,21 +136,21 @@ public class CreateRoom extends Activity {
     }
 
     public void sendBytes(byte byteCode, String message) throws IOException {
-            OutputStream os = clientSocket.getOutputStream();
-            byte[] tempToSendBytes = message.getBytes();
-            byte[] toSendBytes = new byte[tempToSendBytes.length + 1];
-            toSendBytes[0] = byteCode;
-            for (int i = 0; i < tempToSendBytes.length; i++) {
-                toSendBytes[i + 1] = tempToSendBytes[i];
-            }
-            int toSendLen = toSendBytes.length;
-            byte[] toSendLenBytes = new byte[4];
-            toSendLenBytes[0] = (byte) (toSendLen & 0xff);
-            toSendLenBytes[1] = (byte) ((toSendLen >> 8) & 0xff);
-            toSendLenBytes[2] = (byte) ((toSendLen >> 16) & 0xff);
-            toSendLenBytes[3] = (byte) ((toSendLen >> 24) & 0xff);
-            os.write(toSendLenBytes);
-            os.write(toSendBytes);
+        OutputStream os = clientSocket.getOutputStream();
+        byte[] tempToSendBytes = message.getBytes();
+        byte[] toSendBytes = new byte[tempToSendBytes.length + 1];
+        toSendBytes[0] = byteCode;
+        for (int i = 0; i < tempToSendBytes.length; i++) {
+            toSendBytes[i + 1] = tempToSendBytes[i];
+        }
+        int toSendLen = toSendBytes.length;
+        byte[] toSendLenBytes = new byte[4];
+        toSendLenBytes[0] = (byte) (toSendLen & 0xff);
+        toSendLenBytes[1] = (byte) ((toSendLen >> 8) & 0xff);
+        toSendLenBytes[2] = (byte) ((toSendLen >> 16) & 0xff);
+        toSendLenBytes[3] = (byte) ((toSendLen >> 24) & 0xff);
+        os.write(toSendLenBytes);
+        os.write(toSendBytes);
     }
 
     public byte[] readBytes() throws IOException, InterruptedException {

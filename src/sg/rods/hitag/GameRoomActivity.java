@@ -2,18 +2,21 @@ package sg.rods.hitag;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
 
 import sg.rods.resources.Command;
 import sg.rods.resources.SocketHandler;
@@ -35,6 +38,8 @@ public class GameRoomActivity extends Activity {
         Bundle pastBundle = getIntent().getExtras();
         String roomId = pastBundle.getString("roomId");
         String roomName = pastBundle.getString("roomName");
+        String playerList = pastBundle.getString("listPlayer");
+        RefreshRoom(playerList);
         boolean isHost = pastBundle.getBoolean("host"); // get role. Role is determined by how User get into the room - Create or Join
         String roomTitle = roomId + ":" + roomName;
         this.setTitle(roomTitle);
@@ -48,6 +53,15 @@ public class GameRoomActivity extends Activity {
                 }
             });
         }
+       /* SocketListener sl = new SocketListener();
+        sl.setContextInterface(this);
+        final Thread t = new Thread(sl);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                t.start();
+            }
+        }, 5000);*/
         /*
         getRoleOfMember
         
@@ -83,9 +97,8 @@ public class GameRoomActivity extends Activity {
                         case Command.START:
                             break;
                         case Command.ROOM_REFRESH:
-                            RefreshRoom(value);
+                            RefreshRoom(stringValue);
                             break;
-
                     }
                 } catch (InterruptedException e) {
                     Toast.makeText(c, "Unable to create a room.", Toast.LENGTH_LONG).show();
@@ -126,9 +139,21 @@ public class GameRoomActivity extends Activity {
         return receivedBytes;
     }
 
-    public void RefreshRoom(byte[] byteData)
+    public void RefreshRoom(String stringData)
     {
-        //get server to send code dynamically to refresh
+        String[] playerList;
+        if(stringData.contains(",")) {
+            playerList = stringData.split(",");
+        } else {
+            ArrayList<String> arr = new ArrayList<String>();
+            arr.add(stringData);
+            playerList = (String[]) arr.toArray();
+        }
+        ListView lv = (ListView) findViewById(R.id.playerList);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, playerList);
+        lv.setAdapter(adapter);
+
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
