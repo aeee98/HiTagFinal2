@@ -69,14 +69,12 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
     public static final class string {
         public static final int action_settings=0x7f070000;
         public static final int app_name=0x7f070001;
-        public static final int dummy_button=0x7f070002;
-        public static final int dummy_content=0x7f070003;
-        public static final int hello_blank_fragment=0x7f070004;
-        public static final int hello_world=0x7f070005;
-        public static final int title_activity_create_room=0x7f070006;
-        public static final int title_activity_game_room=0x7f070007;
-        public static final int title_activity_join_room=0x7f070008;
-        public static final int title_activity_splash_screen=0x7f070009;
+        public static final int hello_blank_fragment=0x7f070002;
+        public static final int hello_world=0x7f070003;
+        public static final int title_activity_create_room=0x7f070004;
+        public static final int title_activity_game_room=0x7f070005;
+        public static final int title_activity_join_room=0x7f070006;
+        public static final int title_activity_splash_screen=0x7f070007;
     }
     public static final class style {
         /** 
