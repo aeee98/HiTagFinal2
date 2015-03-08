@@ -32,7 +32,6 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int CreateRoom=0x7f0a0002;
         public static final int Passwordfield=0x7f0a0007;
         public static final int Passwordtxt=0x7f0a0006;
-        public static final int RoomCreatebtn=0x7f0a0008;
         public static final int RoomNameText=0x7f0a0004;
         public static final int RoomNameTextEdit=0x7f0a0005;
         public static final int action_settings=0x7f0a0013;
@@ -46,6 +45,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int progessBarLinear=0x7f0a0011;
         public static final int progressBar=0x7f0a0012;
         public static final int refreshBtn=0x7f0a0009;
+        public static final int roomCreateBtn=0x7f0a0008;
         public static final int roomList=0x7f0a000c;
         public static final int startGameBtn=0x7f0a000d;
         public static final int top=0x7f0a0000;
@@ -72,10 +72,12 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int app_name=0x7f070001;
         public static final int hello_blank_fragment=0x7f070002;
         public static final int hello_world=0x7f070003;
-        public static final int title_activity_create_room=0x7f070004;
-        public static final int title_activity_game_room=0x7f070005;
-        public static final int title_activity_join_room=0x7f070006;
-        public static final int title_activity_splash_screen=0x7f070007;
+        public static final int server_hostname=0x7f070004;
+        public static final int server_port=0x7f070005;
+        public static final int title_activity_create_room=0x7f070006;
+        public static final int title_activity_game_room=0x7f070007;
+        public static final int title_activity_join_room=0x7f070008;
+        public static final int title_activity_splash_screen=0x7f070009;
     }
     public static final class style {
         /** 

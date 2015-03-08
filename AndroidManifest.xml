@@ -8,14 +8,15 @@
         android:minSdkVersion="18"
         android:targetSdkVersion="18" />
 
-    <android:uses-permission
+    <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="18" />
-    <android:uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <android:uses-permission
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission
         android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="18" />
-
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_splashscreen"
@@ -48,6 +49,7 @@
             android:name=".GameRoomActivity"
             android:label="@string/title_activity_game_room" >
         </activity>
+        <activity android:name="com.razer.android.nabuopensdk.ActivityWebView" />
     </application>
 
 </manifest>

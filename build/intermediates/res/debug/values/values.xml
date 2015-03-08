@@ -14,6 +14,8 @@
     <string name="app_name">HiTag</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="hello_world">Hello world!</string>
+    <string name="server_hostname">cynxtech-sql.cloudapp.net</string>
+    <string name="server_port">3853</string>
     <string name="title_activity_create_room">CreateRoom</string>
     <string name="title_activity_game_room">GameRoomActivity</string>
     <string name="title_activity_join_room">JoinRoom</string>

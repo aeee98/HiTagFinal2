@@ -6,7 +6,7 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_create_room">CreateRoom</string>
     <string name="server_hostname">cynxtech-sql.cloudapp.net</string>
-    <string name="server_port">1111</string>
+    <string name="server_port">3853</string>
 
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

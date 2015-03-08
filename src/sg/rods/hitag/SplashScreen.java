@@ -1,26 +1,21 @@
 package sg.rods.hitag;
 
-import sg.rods.hitag.util.SystemUiHider;
 import sg.rods.resources.SocketHandler;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
 
+import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.net.UnknownHostException;
 
-
-/**
- * An example full-screen activity that shows and hides the system UI (i.e.
- * status bar and navigation/system bar) with user interaction.
- *
- * @see SystemUiHider
- */
 public class SplashScreen extends Activity {
 
     @Override
@@ -36,19 +31,50 @@ public class SplashScreen extends Activity {
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-        Socket clientSocket = null;
-        try {
-            String serverHost = getString(R.string.server_hostname);
-            int serverPort = Integer.parseInt(getString(R.string.server_port));
-            InetSocketAddress address = new InetSocketAddress(serverHost, serverPort);
-            clientSocket = new Socket(address.getAddress(), serverPort);
-        } catch (Exception err) {
-            clientSocket = null;
-            System.out.println("Error: " + err.getLocalizedMessage());
-        }
-        SocketHandler.setSocket(clientSocket);
+        final SocketConnect sc = new SocketConnect();
+        sc.setIntent(new Intent(SplashScreen.this, MainActivity.class));
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Thread t = new Thread(sc);
+                t.start();
+            }
+        }, 5000);
+        //Intent i = new Intent(SplashScreen.this, MainActivity.class);
+        //startActivity(i);
+        //finish();
         // Start Nabu Connection
         // Trigger Socket and Nabu Connection
        // delayedHide(100);
+    }
+
+    class SocketConnect implements Runnable {
+
+        private Intent i = null;
+
+        public void setIntent(Intent i) {
+            this.i = i;
+        }
+
+        @Override
+        public void run() {
+            Socket clientSocket = null;
+            String serverHost = getString(R.string.server_hostname);
+            int serverPort = Integer.parseInt(getString(R.string.server_port));
+            System.out.println("Address: " + serverHost.toString() + ":" + serverPort);
+            try {
+                clientSocket = new Socket(serverHost, serverPort);
+                clientSocket.setKeepAlive(true);
+            } catch (UnknownHostException e) {
+                clientSocket = null;
+                System.out.println("Unknown Host: " + e.getMessage());
+            } catch (IOException e) {
+                clientSocket = null;
+                System.out.println("IO Error: " + e.getMessage());
+            }
+            SocketHandler.setSocket(clientSocket);
+            startActivity(i);
+            finish();
+        }
     }
 }
