@@ -23,6 +23,16 @@
         android:layout_height="wrap_content"
         android:id="@+id/roomList"
         android:layout_below="@+id/refreshBtn"
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/startGameBtn" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Start Game"
+        android:id="@+id/startGameBtn"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentStart="true" />
 
 </RelativeLayout>

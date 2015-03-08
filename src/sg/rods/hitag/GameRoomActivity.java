@@ -5,19 +5,30 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 
 
 public class GameRoomActivity extends Activity {
-
+    private Button startButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_room);
         /*
-        sample code
         for all members in room
-
+        List.Add
+        Populate
          */
+
+        //Check If Master, if Master, GameButton at bottom has the functionality to start the game. Otherwise, it will not be clickable
+        startButton = (Button)findViewById(R.id.startGameBtn);
+        /*
+        getRoleOfMember
+        
+        if Master (setBtnClickListener to link to startGameclass, as well as servercode to deploy all members to startGame)
+        else startButton.setEnabled(false);
+        */
+
     }
 
     public void RefreshRooms(View view)
