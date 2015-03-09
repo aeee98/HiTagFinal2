@@ -26,6 +26,8 @@ import com.razer.android.nabuopensdk.models.Scope;
 import com.razer.android.nabuopensdk.models.UserProfile;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -33,15 +35,30 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import java.io.IOException;
+import java.net.Socket;
+import java.net.UnknownHostException;
+
+import sg.rods.resources.SocketHandler;
+
 
 public class MainActivity extends Activity {
 	static NabuOpenSDK nabuSDK = null;
+    Thread socketThread;
 	StringBuilder builder;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     	nabuSDK = NabuOpenSDK.getInstance(this);
+        socketThread = new Thread() {
+            @Override
+            public void run() {
+                    createSocketThread();
+                    socketThread.interrupt();
+            }
+        };
+        socketThread.start();
     	nabuSDK.initiate(this, "ec47877454906fd268286676ef549d0736965485", new String[] { Scope.COMPLETE }, new NabuAuthListener() {
     		@Override
             public void onAuthSuccess(String arg0) {
@@ -91,6 +108,34 @@ public class MainActivity extends Activity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
+    }
+
+    public void createSocketThread() {
+        if((SocketHandler.getSocket() == null)||(SocketHandler.getSocket().isConnected() == false)||(SocketHandler.getSocket().isClosed())) {
+            try {
+                Socket newSocket = new Socket("cynxtech-sql.cloudapp.net", 3853);
+                SocketHandler.setSocket(newSocket);
+            } catch (UnknownHostException err) {
+                showCloseDialog();
+            } catch (IOException err) {
+                showCloseDialog();
+            }
+        }
+    }
+
+    public void showCloseDialog() {
+        AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(this);
+        dlgAlert.setMessage("Unable to connect to server. Try again later.");
+        dlgAlert.setTitle("Error");
+        dlgAlert.setPositiveButton("OK",new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                moveTaskToBack(true);
+                android.os.Process.killProcess(android.os.Process.myPid());
+                System.exit(1);
+            }
+        });
+        dlgAlert.setCancelable(false);
+        dlgAlert.create().show();
     }
 
     @Override

@@ -1,7 +1,9 @@
 package sg.rods.hitag;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Menu;
@@ -118,14 +120,29 @@ public class GameRoomActivity extends Activity {
                     for (int i = 1; i < fromClient.length; i++) {
                         value[i - 1] = fromClient[i];
                     }
+                    System.out.println("Command #" + command);
                     String stringValue = new String(value);
                     switch(command) {
                         case Command.START:
+                            System.out.println("Command.START");
                             break;
                         case Command.ROOM_REFRESH:
+                            System.out.println("Command.ROOM_REFRESH");
                             RefreshRoom(stringValue);
                             break;
+                        case Command.ROOM_KICK:
+                            System.out.println("Command.ROOM_KICK");
+                            running = false;
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(getApplicationContext(), "You've been kicked by the host.", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                            NetworkListener.interrupt();
+                            break;
                         case Command.LEAVE:
+                            System.out.println("Command.LEAVE");
                             running = false;
                             NetworkListener.interrupt();
                     }
@@ -138,8 +155,8 @@ public class GameRoomActivity extends Activity {
                     finish();
                     //Toast.makeText(c, "Are you sure you're connected to the server?", Toast.LENGTH_LONG).show();
                 }
-                finish();
             }
+            finish();
         }
     }
 

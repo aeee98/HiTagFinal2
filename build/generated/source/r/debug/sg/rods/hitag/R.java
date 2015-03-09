@@ -50,13 +50,13 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int playerList=0x7f0a0009;
         public static final int progessBarLinear=0x7f0a0019;
         public static final int progressBar=0x7f0a001a;
-        public static final int refreshBtn=0x7f0a000c;
         public static final int roomCreateBtn=0x7f0a0008;
-        public static final int roomList=0x7f0a000d;
+        public static final int roomIdText=0x7f0a000d;
         public static final int savePrefBtn=0x7f0a0017;
         public static final int serverLbl=0x7f0a0011;
         public static final int startGameBtn=0x7f0a000e;
         public static final int startGameButton=0x7f0a000a;
+        public static final int textView=0x7f0a000c;
         public static final int textView2=0x7f0a0014;
         public static final int top=0x7f0a0000;
         public static final int versionLbl=0x7f0a0013;
